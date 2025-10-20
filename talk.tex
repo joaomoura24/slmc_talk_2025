@@ -1,0 +1,146 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Informatics}
+
+\usepackage[backend=biber, style=ieee, maxcitenames=6]{biblatex}
+\addbibresource{bib.bib}
+\usepackage{csquotes}
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{tikzpeople}
+\usetikzlibrary{arrows, arrows.meta, fadings, fit, backgrounds, calc, math, decorations.markings, decorations.text, intersections, patterns, bending, positioning, shapes, shapes.geometric}
+% set up externalization
+\usetikzlibrary{external}
+\tikzexternalize[
+  prefix=Tikz/,
+  ]
+\tikzset{%
+  external/only named=true,
+  block/.style = {draw, rounded corners=2ex, outer sep=0, minimum width=2.2cm, fill=white},%
+  masterBlock/.style = {fill, rectangle, inner sep=0.1*\U, rounded corners=2ex, fill=infoBlue!20!white},
+  frame/.style={rectangle, draw, minimum width=5em, text centered, minimum height=3.6em, fill=white, rounded corners, align=center},
+  line/.style={draw, -{Latex}},
+}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=newest}
+\pgfplotsset{%
+  % grid=both,
+  tick align=outside,
+  tick pos=left,
+  major tick length=2pt,
+  xlabel shift = -3 pt,
+  ylabel shift = -3 pt,
+  % enlargelimits=false,
+  every axis plot/.append style={%
+      font=\footnotesize,
+  }, % line
+  legend cell align={left},
+  every axis legend/.append style={%
+      font=\footnotesize,
+  },
+  every tick label/.append style={%
+      font=\footnotesize,
+  },
+}
+\usepackage{countriesofeurope}
+\usepackage{fontawesome}
+\usepackage{subcaption}
+\makeatletter
+\newcommand{\getLength}[4]{%
+    \pgfmathanglebetweenpoints{\pgfpointanchor{#1}{#2}}
+                              {\pgfpointanchor{#3}{#4}}
+    \global\let\myangle\pgfmathresult % we need a global macro
+    \pgfpointdiff{\pgfpointanchor{#1}{#2}}
+                {\pgfpointanchor{#3}{#4}}
+    \pgf@xa=\pgf@x % no need to use a new dimen
+    \pgf@ya=\pgf@y
+    \pgfmathparse{veclen(\pgf@xa,\pgf@ya)/28.45274} % to convert from pt to cm
+    \global\let\mylength\pgfmathresult % we need a global macro
+}
+\makeatother 
+
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{xcolor}
+\colorlet{myorange}{orange!80!black}
+\colorlet{myred}{red!80!black}
+\colorlet{myblue}{blue!80!black}
+\colorlet{mygreen}{green!60!black}
+\colorlet{mydarkred}{red!30!black}
+\colorlet{mydarkblue}{blue!40!black}
+\colorlet{mydarkgreen}{green!30!black}
+\usepackage{listofitems} % for \readlist
+
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{makecell}
+\usepackage{qrcode}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\newcommand{\heightVideo}{6.0cm}
+\newcommand{\heightVideoFull}{7.0cm}
+
+\newrobustcmd*{\footfullcitenomark}{% 
+  \AtNextCite{%
+    \let\thefootnote\relax
+    \let\mkbibfootnote\mkbibfootnotetext
+  }
+  \footfullcite%
+}
+\title{Deploying multi-contact manipulation}
+% \subtitle{How to learn contact-rich manipulation skills?}
+\author{\textbf{Jo\~{a}o Moura}}
+\date{\today}
+
+
+\makeatletter
+\def\calcLength(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{center}}%
+             {\pgfpointanchor{#2}{center}}%
+\pgf@xa=\pgf@x%
+\pgf@ya=\pgf@y%
+\FPeval\@temp@a{\pgfmath@tonumber{\pgf@xa}}%
+\FPeval\@temp@b{\pgfmath@tonumber{\pgf@ya}}%
+\FPeval\@temp@sum{(\@temp@a*\@temp@a+\@temp@b*\@temp@b)}%
+\FProot{\FPMathLen}{\@temp@sum}{2}%
+\FPround\FPMathLen\FPMathLen5\relax
+\global\expandafter\edef\csname #3\endcsname{\FPMathLen}
+}
+\makeatother
+
+\begin{document}
+
+\input{Tikz/tikz_nodes.tex}
+% remove Figure from figures caption
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+\begin{frame}[plain,noframenumbering]
+  \maketitle
+\end{frame}
+
+\section{Edinburgh}
+
+\begin{frame}[t]
+  \begin{itemize}
+    \item The 7th UK Robot Manipulation Workshop
+    \begin{itemize}
+      \item 6--7 January (2026)
+      \item \href{https://www.robot-manipulation.uk}{https://www.robot-manipulation.uk}
+    \end{itemize}
+    \item ROSCON UK 25
+    \begin{itemize}
+      \item 15--17 September (2026)
+      \item \href{https://roscon.org.uk/2025/}{https://roscon.org.uk/2025/}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Vision}
+
+\begin{frame}[plain, noframenumbering]
+  \maketitle
+\end{frame}
+
+\end{document}

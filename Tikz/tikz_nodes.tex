@@ -1,0 +1,211 @@
+\newsavebox{\nodeRL}
+\savebox{\nodeRL}{%
+    \tikzexternaldisable
+    \begin{tikzpicture}[font=\scriptsize, x=1.1em, y=0.7em, inner sep=0.]
+        % Definition of styles
+        \tikzstyle{node}=[circle,draw=myblue,minimum size=0.5em,inner sep=0.0,outer sep=0.0]
+        \tikzstyle{node in}=[node,green!20!black,draw=mygreen!30!black,fill=mygreen!25]
+        \tikzstyle{node hidden}=[node,blue!20!black,draw=myblue!30!black,fill=myblue!20]
+        \tikzstyle{node out}=[node,red!20!black,draw=myred!30!black,fill=myred!20]
+        \tikzstyle{connect}=[mydarkblue] %,line cap=round
+        \tikzset{ % node styles, numbered for easy mapping with \nstyle
+            node 1/.style={node in},
+            node 2/.style={node hidden},
+            node 3/.style={node out},
+        }
+        \def\nstyle{int(\lay<\Nnodlen?min(2,\lay):3)} % map layer number onto 1, 2, or 3
+        \coordinate (origin) at (0,0);
+        % Constants for scalling
+        \begin{scope}[transparency group]
+            %----------------------------------------------------------------------------
+            \readlist\Nnod{3,4,4,2} % array of number of nodes per layer
+            \foreachitem \N \in \Nnod{ % loop over layers
+            \def\lay{\Ncnt} % alias of index of current layer
+            \pgfmathsetmacro\prev{int(\Ncnt-1)} % number of previous layer
+            \foreach \i [evaluate={\y=\N/2-\i; \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
+                % NODES
+                \node[node \n] (N\lay-\i) at ($(origin)+(\x,\y)$) {};
+                % CONNECTIONS
+                \ifnum\lay>1 % connect to previous layer
+                \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
+                    \draw[connect,white] (N\prev-\j) -- (N\lay-\i);
+                    \draw[connect] (N\prev-\j) -- (N\lay-\i);
+                }
+                \fi % else: nothing to connect first layer
+            }
+            }
+            % LABELS
+            \node[left=0.4,align=center,mygreen!60!black] at (N1-2) {$o_t$\\$g_t$};
+            \node[right=0.4,align=center,myred!60!black] at ($(N\Nnodlen-1)!0.5!(N\Nnodlen-2)$) {$a_t$};
+            % \node[above=0.5,align=center,myblue!60!black] at ($(N2-1)!0.5!(N3-1)$) {$u=\pi(x)$};
+            % \node[below=0.5,align=center,myblue!60!black] at ($(N2-\Nnodlen)!0.5!(N3-\Nnodlen)$) {$u=\pi(x)$};
+            % \node[below=0.5,align=center] at ($(N2-\Nnodlen)!0.5!(N3-\Nnodlen)$) {\textbf{L}earning};
+            %----------------------------------------------------------------------------
+        \end{scope}
+    \end{tikzpicture}%
+    \tikzexternalenable
+}
+
+% figure pushing
+\newsavebox{\nodePushing}%
+\savebox{\nodePushing}{%
+    \tikzexternaldisable
+    \begin{tikzpicture}
+        % Definition of styles
+        \input{Tikz/tikz.tex}
+        % Constants for scalling
+        \def\U{8mm}
+        \coordinate (origin) at (0,0);
+        %----------------------------------------------------------------------------
+        % previous position
+        \def\squared{0.6*\U}
+        \def\qa{114.63}
+        \def\qb{-123.21}
+        \def\qc{-61.42}
+        \coordinate (origin1) at ($(origin)+(\qa:1.5*\U)$);
+        \coordinate (origin2) at ($(origin1)!1.5*\U!180+\qb:(origin)$);
+        \coordinate (endeffector) at ($(origin2)!1.0*\U!180+\qc:(origin1)$);
+        \begin{scope}[opacity=.5, transparency group]
+            \pic {lastlinkcontact={origin2,endeffector,0.1*\U}};
+            \pic {link={origin1,origin2,0.1*\U}};
+            \pic {link={origin,origin1,0.1*\U}} node[] (link1) {};
+            % Draw rotation pivot
+            \pic[anchor=north] (pivot) at (origin) {pivot={0.1*\U,0.3*\U,0}};
+        \end{scope}
+        % Draw ground
+        \node (ground) at (origin) [ground,yshift=-0.3*\U,anchor=north, minimum width=3.5*\U, xshift=1.0*\U, minimum height=0.3*\U] {};
+        \draw[thick] (ground.north east) -- (ground.north west) node[left] {}; % draw ground line
+        % draw box current 
+        \coordinate (boxcurrent) at (1.5*\U,0);
+        \pic {square={boxcurrent,90,\squared,black!30!blue}};
+        % draw box target
+        \coordinate (boxtarget) at (2.5*\U,0);
+        \draw[black!30!green, dashed, thick] ($(boxtarget)+(0.5*\squared,0.5*\squared)$) rectangle ($(boxtarget)+(-0.5*\squared,-0.5*\squared)$);
+        \draw[-stealth, black!30!green, thick] (boxtarget) --++ (0,0.25*\U);
+        % end-effector ball
+        \fill[black] (endeffector) circle (1.0pt) node[] {};
+        % draw forces
+        \draw[latex-, myred, thick] (endeffector) -- ++(-0.5*\U,0) node[] {};
+        \draw[-latex, myred, thick] ($(boxcurrent)+(-0.5*\squared,-0.5*\squared)$) -- ++(-0.5*\U,0) node[] {};
+    \end{tikzpicture}%
+    \tikzexternalenable
+}%
+
+% figure grasping
+\newsavebox{\nodeGrasping}%
+\savebox{\nodeGrasping}{%
+    \tikzexternaldisable
+    \begin{tikzpicture}
+        % Definition of styles
+        \input{Tikz/tikz.tex}
+        % Constants for scalling
+        \def\U{9mm}
+        \coordinate (origin) at (0,0);
+        %----------------------------------------------------------------------------
+        % previous position
+        \def\squared{0.45*\U}
+        \def\qa{100}
+        \def\qb{-80}
+        \def\qc{-75}
+        \pgfmathtruncatemacro\qabc{\qa+\qb+\qc+180}
+        \coordinate (origin1) at ($(origin)+(\qa:1.2*\U)$);
+        \coordinate (origin2) at ($(origin1)!1.2*\U!\qb+180:(origin)$);
+        \coordinate (endeffector) at ($(origin2)!0.8*\U!\qc+180:(origin1)$);
+        \pic {lastlink={origin2,endeffector,0.08*\U}};
+        \pic {link={origin1,origin2,0.08*\U}};
+        \pic {link={origin,origin1,0.08*\U}} node[] (link1) {};
+        % draw current box
+        \coordinate (boxcurrent) at ($(origin2)!1.2!(endeffector)$);
+        \pic {square={boxcurrent,\qabc,\squared,black!30!blue}};
+        % draw target
+        \coordinate (boxtarget) at (1.6*\U,0.0);
+        \draw[black!30!green, dashed, thick] ($(boxtarget)+(0.56*\squared,0.56*\squared)$) rectangle ($(boxtarget)+(-0.56*\squared,-0.56*\squared)$);
+        \draw[-stealth, black!30!green, thick] (boxtarget) --++ (0,0.23*\U);
+        % Draw ground
+        \node (ground) at (origin) [ground,yshift=-0.3*\U,anchor=north, minimum width=2.5*\U, xshift=0.8*\U, minimum height=0.3*\U] {};
+        \draw[thick] (ground.north east) -- (ground.north west) node[left] {}; % draw ground line
+        % draw obstacle
+        \node (obstacle) at (0.8*\U,0.0) [ground, yshift=-0.26*\U, anchor=south, minimum width=0.4*\U, minimum height=1.0*\U] {};
+        \draw[thick] (obstacle.north east) -- (obstacle.north west) -- (obstacle.south west) -- (obstacle.south east) -- cycle;
+        % Draw rotation pivot
+        \pic[anchor=north] (pivot) at (origin) {pivot={0.1*\U,0.3*\U,0}};
+    \end{tikzpicture}%
+    \tikzexternalenable
+}%
+
+% figure dual arm
+\newsavebox{\nodeDualArm}%
+\savebox{\nodeDualArm}{%
+    \tikzexternaldisable
+    \begin{tikzpicture}[font=\tiny]%
+        % Definition of styles
+        \input{Tikz/tikz.tex}
+        % Constants for scalling
+        \def\U{7.0mm}
+        \coordinate (origin) at (0,0);
+        \coordinate (shoulderL) at (-0.6,2.27*\U);
+        \coordinate (shoulderR) at (0.6,2.27*\U);
+        %----------------------------------------------------------------------------
+        % previous position
+        \def\squared{1.2*\U}
+        \def\qLbase{60}
+        \def\qLshoulder{-170.0}
+        \def\qLelbow{110.0}
+        \def\qLwrist{30.0}
+        \def\qRbase{-60}
+        \def\qRshoulder{-50.0}
+        \def\qRelbow{-73.0}
+        \def\qRwrist{17.0}
+        \pgfmathparse{\qLshoulder+\qLelbow+\qLwrist}
+        \edef\qL{\pgfmathresult}
+        % left arm coordinates
+        \coordinate (elbowL) at ($(shoulderL)+(\qLshoulder:1.0*\U)$);
+        \coordinate (wristL) at ($(elbowL)!1.0*\U!180+\qLelbow:(shoulderL)$);
+        \coordinate (endeffectorL) at ($(wristL)!0.8*\U!180+\qLwrist:(elbowL)$);
+        % right arm coordinates
+        \coordinate (elbowR) at ($(shoulderR)+(\qRshoulder:1.0*\U)$);
+        \coordinate (wristR) at ($(elbowR)!1.0*\U!180+\qRelbow:(shoulderR)$);
+        \coordinate (endeffectorR) at ($(wristR)!0.8*\U!180+\qRwrist:(elbowR)$);
+        % box coordinates
+        \coordinate (boxcurrent) at ($(endeffectorL)!0.5*\squared!180:(wristL)$);
+        \coordinate (boxtarget) at (1.8*\U,0.3*\U);
+        \begin{scope}[transparency group]
+            % draw box target
+            \draw[black!30!green, dashed, very thick] ($(boxtarget)+(0.5*\squared,0.5*\squared)$) rectangle ($(boxtarget)+(-0.5*\squared,-0.5*\squared)$);
+            \draw[-stealth, mygreen, thick] (boxtarget) --++ (0,0.25*\U);
+            % draw neck
+            \draw[thick, fill=white] (-0.06*\U,2.6*\U) rectangle (0.06*\U,2.9*\U);
+            % draw body
+            \draw[thick, fill=white] (0,2.65*\U) -- ++(0.2*\U,0) -- ++(\qRbase:1.0*\U) -- ++(0,-0.2*\U) to[in=20,out=-110] ++(-1.4*\U,0) -- ++(0,0.2*\U) -- ++(\qLbase:1.0*\U) -- cycle;
+            % draw head
+            \node [draw, fill=white, thick, shape=rectangle, minimum width=0.8*\U, minimum height=0.2*\U, anchor=center, rounded corners=2pt] at (0,3.0*\U) {};
+            \fill[black] (0.2*\U,3.0*\U) circle (1.0pt) node[] {};
+            \fill[black] (-0.2*\U,3.0*\U) circle (1.0pt) node[] {};
+            % draw box current 
+            \pic {square={boxcurrent,\qL-90,\squared,black!30!blue}};
+            % draw left arm
+            \pic {lastlinklinecontact={wristL,endeffectorL,0.1*\U}};
+            \pic {link={elbowL,wristL,0.1*\U}};
+            \pic {link={shoulderL,elbowL,0.1*\U}} node[] (link1) {};
+            \pic[anchor=north] (pivot) at (shoulderL) {pivot={0.1*\U,0.3*\U,\qLbase}};
+            % draw right arm
+            \pic {lastlink={wristR,endeffectorR,0.1*\U}};
+            \pic {link={elbowR,wristR,0.1*\U}};
+            \pic {link={shoulderR,elbowR,0.1*\U}} node[] (link1) {};
+            \pic[anchor=north] (pivot) at (shoulderR) {pivot={0.1*\U,0.3*\U,\qRbase}};
+            % \fill[black] (endeffectorR) circle (1.0pt) node[] {};
+            % Draw ground
+            \node (ground) at (origin) [ground,yshift=-0.3*\U,anchor=north, minimum width=2.2*\U, xshift=0.6*\U, minimum height=0.3*\U] {};
+            \draw[thick] (ground.north east) -- (ground.north west) node[left] {}; % draw ground line
+            % draw box motion
+            % \draw[-stealth, double, myred, thick] ($(boxcurrent)+(0.5*\U,0.6*\U)$) -- node {} ++(0.6*\U,0);
+            % draw forces
+            \draw[-latex, myred, thick] (endeffectorL) -- ++(0.5*\U,-0.2*\U) node[] {};
+            \coordinate (boxcornerA) at ($(boxcurrent)+(\qL-90:0.5*\squared)+(\qL:0.5*\squared)$);
+            \draw[-latex, myred, thick] (boxcornerA) -- ++(-0.2*\U,0.6*\U) node[] {};
+            \coordinate (boxcornerB) at ($(boxcurrent)+(\qL+90:0.5*\squared)+(\qL:0.5*\squared)$);
+            \draw[-latex, myred, thick] (boxcornerB) -- ++(-0.5*\U,-0.2*\U) node[] {};
+        \end{scope}
+    \end{tikzpicture}%
+    \tikzexternalenable
+}%
