@@ -204,37 +204,6 @@
   \footfullcitenomark{Stouraitis2020a}
 \end{frame}
 
-\begin{frame}{Contact-rich Manipulation}{Catching fast, large, and heavy boxes}
-  \centering
-  \begin{figure}[h]
-    \movie[
-      % showcontrols,
-      label=catchingFlyingBox,
-      height=\heightVideo,
-    ]{\includegraphics[height=\heightVideo]{images/catchingFlyingBox.png}}{videos/catchingFlyingBox.mp4}
-  \end{figure}
-  {\scriptsize box speed of over~$3.0\,\si{\meter\per\second}$; box mass of~$4\,\si{\kilo\gram}$}
-  \begin{tikzpicture}[overlay, remember picture]
-    % photos of colaborators
-    \node[anchor=south east] (theo) at (current page.south east) [xshift=-3mm, yshift=10mm] {
-      \includegraphics[height=1.4cm]{images/Theo.png}
-    };
-    \node (theoName) at (theo.south) [anchor=north, text width=3.5cm, align=center] {
-      \textcolor{infoBlue}{\scriptsize\textbf{Theo}}
-    };
-    \draw[very thick, infoBlue] (theo) circle (0.7cm);
-    % -----
-    \node[anchor=south] (lei) at (theo.north) [yshift=5mm] {
-      \includegraphics[height=1.4cm]{images/lei.png}
-    };
-    \node (leiName) at (lei.south) [anchor=north, text width=3.5cm, align=center] {
-      \textcolor{infoBlue}{\scriptsize\textbf{Lei}}
-    };
-    \draw[very thick, infoBlue] (lei) circle (0.7cm);
-  \end{tikzpicture}
-  \footfullcitenomark{Yan2024}
-\end{frame}
-
 \begin{frame}[t]{Contact-rich Manipulation}{Catching fast, large, and heavy boxes}
   \begin{columns}[T]
     \begin{column}{0.4\textwidth}
@@ -261,6 +230,38 @@
       }<2->
     \end{column}
   \end{columns}
+  \begin{tikzpicture}[overlay, remember picture]
+    % photos of colaborators
+    \node[anchor=south east] (theo) at (current page.south east) [xshift=-3mm, yshift=10mm] {
+      \includegraphics[height=1.4cm]{images/Theo.png}
+    };
+    \node (theoName) at (theo.south) [anchor=north, text width=3.5cm, align=center] {
+      \textcolor{infoBlue}{\scriptsize\textbf{Theo}}
+    };
+    \draw[very thick, infoBlue] (theo) circle (0.7cm);
+    % -----
+    \node[anchor=east] (lei) at (theo.west) [xshift=-5mm] {
+      \includegraphics[height=1.4cm]{images/lei.png}
+    };
+    \node (leiName) at (lei.south) [anchor=north, text width=3.5cm, align=center] {
+      \textcolor{infoBlue}{\scriptsize\textbf{Lei}}
+    };
+    \draw[very thick, infoBlue] (lei) circle (0.7cm);
+  \end{tikzpicture}
+  \footfullcitenomark{Yan2024}
+\end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{Catching fast, large, and heavy boxes}
+  \centering
+  \begin{figure}[h]
+    \movie[
+      % showcontrols,
+      label=catchingFlyingBox,
+      height=\heightVideoFull,
+    ]{\includegraphics[height=\heightVideoFull]{images/catchingFlyingBox.png}}{videos/catchingFlyingBox.mp4}
+  \end{figure}
+  \vspace*{-5mm}
+  {\scriptsize box speed of over~$3.0\,\si{\meter\per\second}$; box mass of~$4\,\si{\kilo\gram}$}
   \footfullcitenomark{Yan2024}
 \end{frame}
 
@@ -559,6 +560,16 @@
       \includegraphics[width=0.7\textwidth]{images/fig_ukri_diagram.pdf}
     \end{figure}
   \end{center}
+\end{frame}
+
+\begin{frame}{Whole-body Contact-rich Manipulation}
+  \centering
+  \movie[
+    label=questions,
+    height=\heightVideoFull,
+    autostart,
+    repeat,
+  ]{\includegraphics[height=\heightVideoFull]{images/questions.png}}{videos/questions.mp4}
 \end{frame}
 
 \begin{frame}[plain, noframenumbering]
