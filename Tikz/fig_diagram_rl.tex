@@ -1,0 +1,31 @@
+\begin{tikzpicture}[very thick,node distance = 4cm, font=\footnotesize]%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % nodes
+    \node [frame] (agent) {\textcolor{infoRed}{\textbf{Agent}}\\\usebox{\nodeRL}};
+    \node [frame, minimum width=5.5cm, below=0.4cm of agent] (env) {\textcolor{infoRed}{\textbf{Environment}}\\\usebox{\nodePushing}};
+    \node [frame, left=3.2cm of agent] (observer) {\textcolor{infoRed}{\textbf{Observation}}\\\textcolor{infoRed}{\textbf{Model}}};
+    % coordinates
+    \coordinate[left=8mm of env] (P);
+    \coordinate[above=7mm of env.west] (envReward);
+    \coordinate[above=0mm of env.west] (envGoal);
+    \coordinate[below=7mm of env.west] (envState);
+    \coordinate[below=5mm of agent.west] (agentReward);
+    \coordinate[below=0mm of agent.west] (agentGoal);
+    \coordinate[above=5mm of agent.west] (agentState);
+    \coordinate[above=5mm of observer.east] (observerState);
+    % connections
+    \draw[line] (agent.east) -- ++ (2.0,0) node [midway,above] {$a_t$} |- (env.east);
+    \draw[thin] ([yshift=2mm]P|-envReward) -- ([yshift=-2mm]P|-envState);
+    \draw[line] (envGoal) -- (P |- envGoal) node[midway,above] {$g_{t+1}$};
+    \draw[line] (P |- envGoal) -- ++ (-0.6,0) |- (agent.west);
+    \draw[line] (envReward) -- (P |- envReward) node[midway,above] {$r_{t+1}$};
+    \draw[line] (P |- envReward) -- ++ (-0.3,0) |- (agentReward);
+    \draw[line] (envState) -- (P |- envState) node[midway,above] {$s_{t+1}$};
+    \draw[line] (P |- envState) -| (observer.south) node[pos=0.25, above] {$s_t$};
+    \draw[line] (observerState) -- (agentState);
+    % label
+    \node[above left=0 and 3mm] at (agentReward) {$r_t$};
+    \node[above left=0 and 3mm] at (agentState) {$o_t$};
+    \node[above left=0 and 3mm] at (agentGoal) {$g_t$};
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}%

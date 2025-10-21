@@ -362,10 +362,63 @@
     % autostart,
     % repeat,
     showcontrols
-  ]{\includegraphics[height=\heightVideoFull]{images/rviz_harmony_video.png}}{videos/rviz_harmony_video.mov}
+  ]{\includegraphics[height=\heightVideoFull]{images/rviz_harmony_video.png}}{videos/rviz_harmony_video.mp4}
   \footfullcitenomark{Moura2022}
 \end{frame}
 
+\begin{frame}{Contact-rich Manipulation}{MPC for non-prehensile pushing}
+  \centering
+  \movie[
+    label=icravideo,
+    height=\heightVideoFull,
+    % autostart,
+    % repeat,
+    showcontrols
+  ]{\includegraphics[height=\heightVideoFull]{images/moura.png}}{videos/moura.mp4}
+  \footfullcitenomark{Moura2022}
+\end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{RL for non-prehensile pushing}
+  \begin{center}
+    \underline{Goal-conditioned Parially Observable Markov Decision Process}
+    \tikzsetnextfilename{fig_diagram_rl}
+    \input{Tikz/fig_diagram_rl.tex}
+  \end{center}
+  \begin{tikzpicture}[overlay, remember picture]
+    % photos of colaborators
+    \node[anchor=south east] (juan) at (current page.south east) [xshift=-3mm, yshift=10mm] {
+      \includegraphics[height=1.4cm]{images/Juan.png}
+    };
+    \node (juanName) at (juan.south) [anchor=north, text width=3.5cm, align=center] {
+      \textcolor{infoBlue}{\scriptsize\textbf{Juan}}
+    };
+    \draw[very thick, infoBlue] (juan) circle (0.7cm);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{RL for non-prehensile pushing}
+  \centering
+  \movie[
+    label=irosrobotvideo,
+    height=\heightVideoFull,
+    % autostart,
+    % repeat,
+    showcontrols,
+  ]{\includegraphics[height=\heightVideoFull]{images/physical_robot.png}}{images/physical_robot.mp4}
+  \footfullcitenomark{Ferrandis2023}
+\end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{RL for non-prehensile pushing}
+  \centering
+  \movie[
+    label=corlrobotvideo,
+    height=\heightVideoFull,
+    % autostart,
+    % repeat,
+    showcontrols,
+  ]{\includegraphics[height=\heightVideoFull]{images/robot_experiments_occlusions.png}}{videos/robot_experiments_occlusions.mp4}
+  \footfullcitenomark{Ferrandis2024}
+\end{frame}
 \section{Project applications}
 
 \begin{frame}{
