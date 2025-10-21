@@ -134,19 +134,33 @@
   \end{center}
 \end{frame}
 
-\section{Project applications}
-
-\begin{frame}{
-  UKRI applications\footnote{\href{https://www.ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}{ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}}
-  }{Scaling Whole-Body Contact-Rich Interactions for Assistive Robotics: Human Centric Innovations for Embodied AI}
-  \begin{center}
-    \begin{figure}
-      \includegraphics[width=0.7\textwidth]{images/fig_ukri_diagram.pdf}
-    \end{figure}
-  \end{center}
-\end{frame}
-
 \section{Research discussion}
+
+\begin{frame}[t]
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \centering
+      \begin{figure}
+        \only<1>{
+          \tikzsetnextfilename{fig_landscape_taskspace_contactfree}
+          \input{Tikz/fig_landscape_taskspace_contactfree.tex}
+        }
+        \only<2->{
+          \tikzsetnextfilename{fig_landscape_taskspace_contactrich}
+          \input{Tikz/fig_landscape_taskspace_contactrich.tex}
+        }
+      \end{figure}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \vspace*{5mm}
+      \begin{itemize}
+        \item<only@3-> \textbf{\textcolor{infoRed}{Hybrid dynamics}} from \textbf{contact modes}
+        \item<only@4-> \textbf{\textcolor{infoRed}{Underactuation}} requiring \textbf{prediction} of object dynamics
+        \item<only@5-> Large \textbf{\textcolor{infoRed}{Sim2Real gap}} with high \textbf{uncertainty} from hard-to-model \textbf{contact and frictional interactions}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
 
 \begin{frame}{Hybrid Trajectory Optimization}
   \centering
@@ -190,6 +204,17 @@
   \footfullcitenomark{Stouraitis2020a}
 \end{frame}
 
+\section{Project applications}
+
+\begin{frame}{
+  UKRI applications\footnote{\href{https://www.ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}{ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}}
+  }{Scaling Whole-Body Contact-Rich Interactions for Assistive Robotics: Human Centric Innovations for Embodied AI}
+  \begin{center}
+    \begin{figure}
+      \includegraphics[width=0.7\textwidth]{images/fig_ukri_diagram.pdf}
+    \end{figure}
+  \end{center}
+\end{frame}
 
 \begin{frame}[plain, noframenumbering]
   \maketitle

@@ -1,0 +1,16 @@
+\begin{tikzpicture}[ultra thick]%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \coordinate (origin) at (0,0);%
+    % draw axis
+    \draw[->] (origin) -- ++(7,0) node {};
+    \draw[->] (origin) -- ++(0,6) node {};
+    % draw tiks
+    \draw[shift={(1.5,0)}] (0pt,5pt) -- (0pt,-5pt) node[below] {\Large Contact-free};
+    \draw[shift={(5,0)}] (0pt,5pt) -- (0pt,-5pt) node[below] {\Large Contact-rich};
+    \draw[shift={(0,1.5)}] (5pt,0pt) -- (-5pt,0pt) node[left, align=center] {\Large Task\\\Large Space};
+    \draw[shift={(0,4.5)}] (5pt,0pt) -- (-5pt,0pt) node[left, align=center] {\Large Whole\\\Large Body};
+    % nodes
+    \node (pushing) at (5,1.5) {\usebox{\nodePushing}};
+    \node[draw=infoRed, rounded corners=8pt] (grasping) at (1.5,4.5) {\usebox{\nodeGrasping}};
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}%
