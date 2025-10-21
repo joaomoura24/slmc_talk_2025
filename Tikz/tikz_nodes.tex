@@ -133,7 +133,7 @@
     \tikzexternalenable
 }%
 
-% figure dual arm
+% node catching
 \newsavebox{\nodeDualArm}%
 \savebox{\nodeDualArm}{%
     \tikzexternaldisable
@@ -147,15 +147,15 @@
         \coordinate (shoulderR) at (0.6,2.27*\U);
         %----------------------------------------------------------------------------
         % previous position
-        \def\squared{1.2*\U}
+        \def\squared{1.6*\U}
         \def\qLbase{60}
         \def\qLshoulder{-170.0}
         \def\qLelbow{110.0}
         \def\qLwrist{30.0}
         \def\qRbase{-60}
-        \def\qRshoulder{-50.0}
-        \def\qRelbow{-73.0}
-        \def\qRwrist{17.0}
+        \def\qRshoulder{-35.0}
+        \def\qRelbow{-70.0}
+        \def\qRwrist{35.0}
         \pgfmathparse{\qLshoulder+\qLelbow+\qLwrist}
         \edef\qL{\pgfmathresult}
         % left arm coordinates
@@ -167,12 +167,13 @@
         \coordinate (wristR) at ($(elbowR)!1.0*\U!180+\qRelbow:(shoulderR)$);
         \coordinate (endeffectorR) at ($(wristR)!0.8*\U!180+\qRwrist:(elbowR)$);
         % box coordinates
-        \coordinate (boxcurrent) at ($(endeffectorL)!0.5*\squared!180:(wristL)$);
-        \coordinate (boxtarget) at (1.8*\U,0.3*\U);
+        \coordinate (interm) at ($(endeffectorL)!0.5*\squared!180:(wristL)$);
+        \coordinate (boxcurrent) at ($(interm)!0.25*\squared!-90:(endeffectorL)$);
+        \coordinate (boxtarget) at (1.8*\U,0.55*\U);
         \begin{scope}[transparency group]
             % draw box target
             \draw[black!30!green, dashed, very thick] ($(boxtarget)+(0.5*\squared,0.5*\squared)$) rectangle ($(boxtarget)+(-0.5*\squared,-0.5*\squared)$);
-            \draw[-stealth, mygreen, thick] (boxtarget) --++ (0,0.25*\U);
+            \draw[-stealth, mygreen, thick] (boxtarget) --++ (0,0.40*\U);
             % draw neck
             \draw[thick, fill=white] (-0.06*\U,2.6*\U) rectangle (0.06*\U,2.9*\U);
             % draw body
@@ -181,7 +182,7 @@
             \node [draw, fill=white, thick, shape=rectangle, minimum width=0.8*\U, minimum height=0.2*\U, anchor=center, rounded corners=2pt] at (0,3.0*\U) {};
             \fill[black] (0.2*\U,3.0*\U) circle (1.0pt) node[] {};
             \fill[black] (-0.2*\U,3.0*\U) circle (1.0pt) node[] {};
-            % draw box current 
+            % draw box current
             \pic {square={boxcurrent,\qL-90,\squared,black!30!blue}};
             % draw left arm
             \pic {lastlinklinecontact={wristL,endeffectorL,0.1*\U}};
@@ -200,11 +201,13 @@
             % draw box motion
             % \draw[-stealth, double, myred, thick] ($(boxcurrent)+(0.5*\U,0.6*\U)$) -- node {} ++(0.6*\U,0);
             % draw forces
-            \draw[-latex, myred, thick] (endeffectorL) -- ++(0.5*\U,-0.2*\U) node[] {};
+            \draw[-latex, myred, thick] (endeffectorL) -- ++(0.7*\U,-0.3*\U) node[] {};
             \coordinate (boxcornerA) at ($(boxcurrent)+(\qL-90:0.5*\squared)+(\qL:0.5*\squared)$);
             \draw[-latex, myred, thick] (boxcornerA) -- ++(-0.2*\U,0.6*\U) node[] {};
-            \coordinate (boxcornerB) at ($(boxcurrent)+(\qL+90:0.5*\squared)+(\qL:0.5*\squared)$);
-            \draw[-latex, myred, thick] (boxcornerB) -- ++(-0.5*\U,-0.2*\U) node[] {};
+            \coordinate (boxcornerB) at ($(boxcurrent)+(\qL+90:0.35*\squared)+(\qL:0.5*\squared)$);
+            \draw[-latex, myred, thick] (boxcornerB) -- ++(-0.5*\U,0.25*\U) node[] {};
+            \coordinate (boxcornerC) at ($(boxcurrent)+(\qL+90:0.5*\squared)+(\qL-180:0.3*\squared)$);
+            \draw[-latex, myred, thick] (boxcornerC) -- ++(-0.1*\U,-0.5*\U) node[] {};
         \end{scope}
     \end{tikzpicture}%
     \tikzexternalenable
