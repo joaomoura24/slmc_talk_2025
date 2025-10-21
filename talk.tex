@@ -162,7 +162,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Hybrid Trajectory Optimization}
+\begin{frame}{Contact-rich Manipulation}{Hybrid Trajectory Optimization}
   \centering
   \movie[
     label=theovideo,
@@ -175,7 +175,7 @@
   \footfullcitenomark{Stouraitis2020a}
 \end{frame}
 
-\begin{frame}[t]{Hybrid Trajectory Optimization}
+\begin{frame}[t]{Contact-rich Manipulation}{Hybrid Trajectory Optimization}
   \begin{columns}[T]
     \begin{column}{0.45\textwidth}
       \begin{figure}
@@ -202,6 +202,100 @@
   \end{columns}
   \footfullcitenomark{Stouraitis2018}
   \footfullcitenomark{Stouraitis2020a}
+\end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{Catching fast, large, and heavy boxes}
+  \centering
+  \begin{figure}[h]
+    \movie[
+      % showcontrols,
+      label=catchingFlyingBox,
+      height=\heightVideo,
+    ]{\includegraphics[height=\heightVideo]{images/catchingFlyingBox.png}}{videos/catchingFlyingBox.mp4}
+  \end{figure}
+  {\scriptsize box speed of over~$3.0\,\si{\meter\per\second}$; box mass of~$4\,\si{\kilo\gram}$}
+  \begin{tikzpicture}[overlay, remember picture]
+    % photos of colaborators
+    \node[anchor=south east] (theo) at (current page.south east) [xshift=-3mm, yshift=10mm] {
+      \includegraphics[height=1.4cm]{images/Theo.png}
+    };
+    \node (theoName) at (theo.south) [anchor=north, text width=3.5cm, align=center] {
+      \textcolor{infoBlue}{\scriptsize\textbf{Theo}}
+    };
+    \draw[very thick, infoBlue] (theo) circle (0.7cm);
+    % -----
+    \node[anchor=south] (lei) at (theo.north) [yshift=5mm] {
+      \includegraphics[height=1.4cm]{images/lei.png}
+    };
+    \node (leiName) at (lei.south) [anchor=north, text width=3.5cm, align=center] {
+      \textcolor{infoBlue}{\scriptsize\textbf{Lei}}
+    };
+    \draw[very thick, infoBlue] (lei) circle (0.7cm);
+  \end{tikzpicture}
+  \footfullcitenomark{Yan2024}
+\end{frame}
+
+\begin{frame}[t]{Contact-rich Manipulation}{Catching fast, large, and heavy boxes}
+  \begin{columns}[T]
+    \begin{column}{0.4\textwidth}
+      \vspace*{-1.0cm}
+      % \hspace*{0.5cm}
+      \centering
+      {\tiny
+        \def\svgwidth{0.7\linewidth}
+        \input{Tikz/Concept_mininal}
+      }
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \centering
+      \vspace*{1.0cm}
+      \only{
+        Given a sequence modes $\bm{\mathcal{M}}: \{ \mathcal{M}_0, \mathcal{M}_1, ... \mathcal{M}_M \}$, we solve the follwoing Multi-Mode \textbf{Trajectory Optimization}:
+        {\small
+        \begin{align*}
+            &\min_{x_i,u_i} &\quad& C(x_{0:N},u_{0:N-1})                &\text{(\textcolor{infoRed}{cost})}\\
+            &\text{subject to}            &     & x_{i+1}=f(x_i, u_i, \mathcal{M}_n), &\text{(\textcolor{infoRed}{dynamics})}\\
+            &                             &     & g(x_i, u_i, \mathcal{M}_n) \leq 0.  &\text{(\textcolor{infoRed}{constraints})}
+        \end{align*}
+        }
+      }<2->
+    \end{column}
+  \end{columns}
+  \footfullcitenomark{Yan2024}
+\end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{Catching fast, large, and heavy boxes}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{center}
+        \begin{figure}[h]
+          \centering
+          \movie[
+            showcontrols,
+            label=catchingStiffnessOnly,
+            height=0.55\textwidth,
+          ]{\includegraphics[height=0.55\textwidth]{images/catchingStiffnessOnly.png}}{videos/catchingStiffnessOnly.mp4}
+        \end{figure}
+        {\scriptsize low stiffness only}
+      \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{center}
+        \begin{figure}[h]
+          \movie[
+            showcontrols,
+            label=catchingImpactAware,
+            height=0.55\textwidth,
+          ]{\includegraphics[height=0.55\textwidth]{images/catchingImpactAware.png}}{videos/catchingImpactAware.mp4}
+        \end{figure}
+        {\scriptsize \textbf{impact-aware planning}}
+      \end{center}
+    \end{column}
+  \end{columns}
+  \begin{center}
+    {\scriptsize box speed of~$0.66\,\si{\meter\per\second}$; box mass of~$20\,\si{\kilo\gram}$}
+  \end{center}
+  \footfullcitenomark{Stouraitis2020b}
 \end{frame}
 
 \section{Project applications}
