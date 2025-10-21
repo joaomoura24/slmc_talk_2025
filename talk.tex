@@ -386,7 +386,7 @@
   \end{center}
   \begin{tikzpicture}[overlay, remember picture]
     % photos of colaborators
-    \node[anchor=south east] (juan) at (current page.south east) [xshift=-3mm, yshift=10mm] {
+    \node[anchor=south east] (juan) at (current page.south east) [xshift=-3mm, yshift=15mm] {
       \includegraphics[height=1.4cm]{images/Juan.png}
     };
     \node (juanName) at (juan.south) [anchor=north, text width=3.5cm, align=center] {
@@ -394,6 +394,8 @@
     };
     \draw[very thick, infoBlue] (juan) circle (0.7cm);
   \end{tikzpicture}
+  \footfullcitenomark{Ferrandis2023}
+  \footfullcitenomark{Ferrandis2024}
 \end{frame}
 
 \begin{frame}{Contact-rich Manipulation}{RL for non-prehensile pushing}
@@ -419,6 +421,35 @@
   ]{\includegraphics[height=\heightVideoFull]{images/robot_experiments_occlusions.png}}{videos/robot_experiments_occlusions.mp4}
   \footfullcitenomark{Ferrandis2024}
 \end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{Sim2Real policy transfer}
+  \centering
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{images/marina_corl_diagram.png}
+  \end{figure}
+  \begin{tikzpicture}[overlay, remember picture]
+    % photos of colaborators
+    \node[anchor=south east] (marina) at (current page.south east) [xshift=-3mm, yshift=10mm] {
+      \includegraphics[height=1.4cm]{images/Marina.png}
+    };
+    \node (marinaName) at (marina.south) [anchor=north, text width=3.5cm, align=center] {
+      \textcolor{infoBlue}{\scriptsize\textbf{Marina}}
+    };
+    \draw[very thick, infoBlue] (marina) circle (0.7cm);
+  \end{tikzpicture}
+  \footfullcitenomark{Aoyama2025}
+\end{frame}
+
+\begin{frame}{Contact-rich Manipulation}{Sim2Real policy transfer}
+  \centering
+  \movie[
+    label=sliding,
+    height=\heightVideoFull,
+    showcontrols,
+  ]{\includegraphics[height=\heightVideoFull]{images/marina_corl.png}}{videos/marina_corl.mp4}
+  \footfullcitenomark{Aoyama2025}
+\end{frame}
+
 \section{Project applications}
 
 \begin{frame}{
