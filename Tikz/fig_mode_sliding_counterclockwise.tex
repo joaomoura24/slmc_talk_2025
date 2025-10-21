@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+    % Constants for scaling
+    \def\U{7mm}
+    %----------------------------------------------------------------------------
+    \coordinate (origin) at (0,0);
+    \coordinate (cornerRight) at ($(origin)+(1*\U,0)$);
+    \coordinate (endRight) at ($(cornerRight)+(0,-0.5*\U)$);
+    \coordinate (cornerLeft) at ($(origin)+(-1*\U,0)$);
+    \coordinate (endLeft) at ($(cornerLeft)+(0,-0.5*\U)$);
+    \coordinate (arrowStart) at ($(origin)+(60:1.3*\U)$);
+    %----------------------------------------------------------------------------
+    % Draw slider
+    \draw[very thick, black!70, line cap=round] (endLeft) -- (cornerLeft) -- (cornerRight) -- (endRight);
+    \draw[black!70] (endLeft) to [out=45,in=-135] (endRight);
+    %----------------------------------------------------------------------------
+    %% Draw friction cone
+    \fill[blue!10] (origin) -- ($(origin)+(120:1.2*\U)$) to [out=-45,in=135] ($(origin)+(60:1.2*\U)$) -- cycle;
+    \draw[dashed, blue] (origin) -- ($(origin)+(120:1.5*\U)$);
+    \draw[dashed, blue] (origin) -- ($(origin)+(60:1.5*\U)$);
+    %----------------------------------------------------------------------------
+    % Draw pusher
+    \draw[fill=black, name path=circle] ($(origin)+(90:0.12*\U)$) circle (0.12*\U);
+    %----------------------------------------------------------------------------
+    % Draw friction arrow
+    \path[name path=S--O] (arrowStart) -- (origin);
+    \path[name intersections={of=circle and S--O,by={A,B}}];
+    \draw[red, -latex, thick] (arrowStart) -- (A);
+    %----------------------------------------------------------------------------
+    % Draw friction arrow
+    \draw[red, -latex, thick] ($(origin)+(-0.3*\U,0.12*\U)$) --++ (-0.5*\U,0);
+    %----------------------------------------------------------------------------
+\end{tikzpicture}

@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+    % Definition of styles
+    \input{Tikz/tikz.tex}
+    % Constants for scalling
+    \def\U{7mm}
+    \coordinate (origin) at (0,0);
+    %----------------------------------------------------------------------------
+    % previous position
+    \def\squared{0.6*\U}
+    \def\qa{114.63}
+    \def\qb{-123.21}
+    \def\qc{-61.42}
+    \coordinate (origin1) at ($(origin)+(\qa:1.5*\U)$);
+    \coordinate (origin2) at ($(origin1)!1.5*\U!180+\qb:(origin)$);
+    \coordinate (endeffector) at ($(origin2)!1.0*\U!180+\qc:(origin1)$);
+    \pic {lastlinkcontact={origin2,endeffector,0.1*\U}};
+    \pic {link={origin1,origin2,0.1*\U}};
+    \pic {link={origin,origin1,0.1*\U}} node[] (link1) {};
+    % Draw ground
+    \node (ground) at (origin) [ground,yshift=-0.3*\U,anchor=north, minimum width=3.5*\U, xshift=1.0*\U, minimum height=0.3*\U] {};
+    \draw[thick] (ground.north east) -- (ground.north west) node[left] {}; % draw ground line
+    % draw box current 
+    \coordinate (boxcurrent) at (1.5*\U,0);
+    \pic {square={boxcurrent,90,\squared,black!30!blue}};
+    % draw box target
+    \coordinate (boxtarget) at (2.5*\U,0);
+    \draw[black!30!green, dashed, thick] ($(boxtarget)+(0.5*\squared,0.5*\squared)$) rectangle ($(boxtarget)+(-0.5*\squared,-0.5*\squared)$);
+    \draw[-stealth, black!30!green, thick] (boxtarget) --++ (0,0.25*\U);
+    % Draw rotation pivot
+    \pic[anchor=north] (pivot) at (origin) {pivot={0.1*\U,0.3*\U,0}};
+    % end-effector ball
+    \fill[black] (endeffector) circle (1.0pt) node[] {};
+\end{tikzpicture}%

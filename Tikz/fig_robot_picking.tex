@@ -1,0 +1,35 @@
+\begin{tikzpicture}
+    % Definition of styles
+    \input{Tikz/tikz.tex}
+    % Constants for scalling
+    \def\U{8mm}
+    \coordinate (origin) at (0,0);
+    %----------------------------------------------------------------------------
+    % previous position
+    \def\squared{0.45*\U}
+    \def\qa{100}
+    \def\qb{-80}
+    \def\qc{-75}
+    \pgfmathtruncatemacro\qabc{\qa+\qb+\qc+180}
+    \coordinate (origin1) at ($(origin)+(\qa:1.2*\U)$);
+    \coordinate (origin2) at ($(origin1)!1.2*\U!\qb+180:(origin)$);
+    \coordinate (endeffector) at ($(origin2)!0.8*\U!\qc+180:(origin1)$);
+    \pic {lastlink={origin2,endeffector,0.08*\U}};
+    \pic {link={origin1,origin2,0.08*\U}};
+    \pic {link={origin,origin1,0.08*\U}} node[] (link1) {};
+    % draw current box
+    \coordinate (boxcurrent) at ($(origin2)!1.2!(endeffector)$);
+    \pic {square={boxcurrent,\qabc,\squared,black!30!blue}};
+    % draw target
+    \coordinate (boxtarget) at (1.6*\U,0.0);
+    \draw[black!30!green, dashed, thick] ($(boxtarget)+(0.55*\squared,0.55*\squared)$) rectangle ($(boxtarget)+(-0.55*\squared,-0.55*\squared)$);
+    \draw[-stealth, black!30!green, thick] (boxtarget) --++ (0,0.23*\U);
+    % Draw ground
+    \node (ground) at (origin) [ground,yshift=-0.3*\U,anchor=north, minimum width=2.5*\U, xshift=0.8*\U, minimum height=0.3*\U] {};
+    \draw[thick] (ground.north east) -- (ground.north west) node[left] {}; % draw ground line
+    % draw obstacle
+    \node (obstacle) at (0.8*\U,0.0) [ground, yshift=-0.26*\U, anchor=south, minimum width=0.4*\U, minimum height=1.0*\U] {};
+    \draw[thick] (obstacle.north east) -- (obstacle.north west) -- (obstacle.south west) -- (obstacle.south east) -- cycle;
+    % Draw rotation pivot
+    \pic[anchor=north] (pivot) at (origin) {pivot={0.1*\U,0.3*\U,0}};
+\end{tikzpicture}%

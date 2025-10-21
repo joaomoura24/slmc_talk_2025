@@ -89,7 +89,7 @@
   \footfullcite%
 }
 \title{Deploying multi-contact manipulation}
-\subtitle{Towards achieving dyynamic contact-rich manipulation behaviours}
+\subtitle{Towards achieving dynamic contact-rich manipulation behaviours}
 \author{\textbf{Jo\~{a}o Moura}}
 \date{\today}
 
@@ -296,6 +296,74 @@
     {\scriptsize box speed of~$0.66\,\si{\meter\per\second}$; box mass of~$20\,\si{\kilo\gram}$}
   \end{center}
   \footfullcitenomark{Stouraitis2020b}
+\end{frame}
+
+\begin{frame}[t]{Contact-rich Manipulation}{MPC for non-prehensile pushing}
+  \begin{columns}[T]
+    \begin{column}{0.4\textwidth}
+      \begin{figure}
+        \centering
+        \tikzsetnextfilename{fig_robot_box_slider}
+        \input{Tikz/fig_robot_box_slider.tex}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \only{
+        \centering
+        \begin{figure}
+          \begin{subfigure}{0.30\textwidth}
+            \centering
+            \tikzsetnextfilename{fig_mode_sticking}
+            \input{Tikz/fig_mode_sticking.tex}
+            \vskip-1.0em
+            \caption*{\footnotesize Sticking}
+          \end{subfigure}
+          \begin{subfigure}{0.30\textwidth}
+            \centering
+            \tikzsetnextfilename{fig_mode_sliding_counterclockwise}
+            \input{Tikz/fig_mode_sliding_counterclockwise.tex}
+            \vskip-1.0em
+            \caption*{\footnotesize Sliding Left}
+          \end{subfigure}
+          \begin{subfigure}{0.30\textwidth}
+            \centering
+            \tikzsetnextfilename{fig_mode_sliding_clockwise}
+            \input{Tikz/fig_mode_sliding_clockwise.tex}
+            \vskip-1.0em
+            \caption*{\footnotesize Sliding Right}
+          \end{subfigure}
+        \end{figure}
+        \vspace*{5mm}
+      }<2->
+      \only{
+        Mathematical Program with Complementarity Constraints (MPCC):
+        {\small
+        \begin{align*}
+            &\min_{x_i,u_i,\varepsilon_i} &\quad& C(x_{0:N},u_{0:N-1},\varepsilon_{0:N-1})&\text{(\textcolor{infoRed}{cost})}\\
+            &\text{subject to} &      & x_{i+1}=f(x_i, u_i),&\text{(\textcolor{infoRed}{dynamics})}\\
+            &                  &      & x_i\in\mathcal{X},&\text{(\textcolor{infoRed}{state constraints})}\\
+            &                  &      & u_i\in\mathcal{U}_0,&\text{(\textcolor{infoRed}{unilaterality})}\\
+            &                  &      & u_i,\varepsilon_i\in\mathcal{U}_{cc},&\text{(\textcolor{infoRed}{complementarity})}
+        \end{align*}
+        }
+      }<3->
+    \end{column}
+  \end{columns}
+  \vspace*{-20mm}
+  \footfullcitenomark{Moura2022}
+\end{frame}
+
+
+\begin{frame}{Contact-rich Manipulation}{MPC for non-prehensile pushing}
+  \centering
+  \movie[
+    label=testmovie,
+    height=\heightVideoFull,
+    % autostart,
+    % repeat,
+    showcontrols
+  ]{\includegraphics[height=\heightVideoFull]{images/rviz_harmony_video.png}}{videos/rviz_harmony_video.mov}
+  \footfullcitenomark{Moura2022}
 \end{frame}
 
 \section{Project applications}

@@ -1,0 +1,58 @@
+%        File: fig_condition_number.tex
+%     Created: Tue Mar 27 09:00 am 2018 B
+% Last Change: Tue Mar 27 09:00 am 2018 B
+%
+% \documentclass[border=15pt]{standalone}
+% \usepackage{tikz}
+% %\usetikzlibrary{calc,patterns,angles,quotes,shapes,arrows,positioning,fit,intersections}
+% \usetikzlibrary{arrows,calc,decorations.markings}
+% \usepackage{pgfplots}
+% \pgfplotsset{compat=newest}
+\begin{tikzpicture}
+    % Definition of styles
+    \input{Tikz/tikz.tex}
+    % Constants for scalling
+    \def\U{1cm}
+    \def\qa{70}
+    \def\qb{-40}
+    \edef\qab{0}
+    \pgfmathparse{\qa+\qb}
+    \edef\qab{\pgfmathresult}
+    \def\squared{1.0*\U}
+    \def\op{1.0}
+    %----------------------------------------------------------------------------
+    \coordinate (origin) at (0,0);
+    \coordinate (base) at (1.5*\U,-0.5*\U);
+    \coordinate (wrist) at ($(base)+(\qa:1.0*\U)$);
+    \coordinate (endeffector) at ($(wrist)!0.8*\U!180+\qb:(base)$);
+    \coordinate (boxcenter) at ($(endeffector)!0.5*\squared!180:(wrist)$);
+    \coordinate (boxfront) at ($(endeffector)!1.1*\squared!180:(wrist)$);
+    \coordinate (boxtarget) at (0,2.0*\U);
+    \coordinate (boxtargetback) at (0.7*\U,2.0*\U);
+    \coordinate (midpoint) at (3.0*\U,2.5*\U);
+    \coordinate (slidermid) at ($(boxcenter)!-0.5*\squared-3pt!180:(wrist)$);
+    \coordinate (slider) at ($(slidermid)!0.2*\U!90:(boxcenter)$);
+    \coordinate (arrowmid) at ($(boxcenter)!-1.0*\squared!180:(wrist)$);
+    \coordinate (arrowright) at ($(arrowmid)!0.4*\U!90:(boxcenter)$);
+    \coordinate (arrowleft) at ($(arrowmid)!0.4*\U!-90:(boxcenter)$);
+    %----------------------------------------------------------------------------
+    \pic {square={boxcenter,\qab,\squared, red!50!black}};
+    \draw[green!50!black, dashed, ultra thick] ($(boxtarget)+(0.6*\squared,0.6*\squared)$) rectangle ($(boxtarget)+(-0.6*\squared,-0.6*\squared)$);
+    \draw[-latex, green!50!black, very thick] (boxtarget) --++ (-0.5*\U,0);
+    \path[draw,
+        decoration={%
+            markings,
+            mark=at position 0.25 with {\arrow{>}},
+            mark=at position 0.50 with {\arrow{>}},
+            mark=at position 0.75 with {\arrow{>}},
+        },
+        postaction=decorate] (boxfront) to [out=\qab,in=0] (midpoint) to [out=180,in=0] (boxtargetback);
+    %----------------------------------------------------------------------------
+    % Draw slider
+    \draw[thick, fill=infoBlue] (slider) circle circle (3pt);
+    \draw[<->, infoBlue, thick] (arrowright) -- (arrowleft);
+    %----------------------------------------------------------------------------
+    % Draw axis
+    \draw[thick,->] (origin) -- ++(0.5*\U,0) node[black,below] {$\mathrm{x}$};
+    \draw[thick,->] (origin) -- ++(0,0.5*\U) node[black,left] {$\mathrm{y}$};
+\end{tikzpicture}
