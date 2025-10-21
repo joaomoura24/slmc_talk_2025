@@ -450,10 +450,109 @@
   \footfullcitenomark{Aoyama2025}
 \end{frame}
 
+\begin{frame}[t]
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \centering
+      \begin{figure}
+        \only<1>{
+          \tikzsetnextfilename{fig_landscape_taskspace_contactrich}
+          \input{Tikz/fig_landscape_taskspace_contactrich.tex}
+        }
+        \only<2-3>{
+          \tikzsetnextfilename{fig_landscape_wholebody_contactfree}
+          \input{Tikz/fig_landscape_wholebody_contactfree.tex}
+        }
+        \only<4->{
+          \tikzsetnextfilename{fig_landscape_wholebody_contactrich}
+          \input{Tikz/fig_landscape_wholebody_contactrich.tex}
+        }
+      \end{figure}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \vspace*{5mm}
+      \only<1>{
+        \begin{itemize}
+          \item Explored \textbf{model-based} and \textbf{data-driven} approaches for contact-rich manipulation.
+          \item Only \textbf{object-centrinc} reasoning.
+        \end{itemize}
+      }
+      \only<3>{
+        \begin{itemize}
+          \item \textbf{High number of degrees of freedom} lead to \textbf{\textcolor{infoRed}{high dimensionality}} in the  \textbf{state and action spaces}.
+          \item Finding robot configurations in \textbf{confined spaces} and with \textbf{obstacles} results in a \textbf{\textcolor{infoRed}{highly non-linear problem}}.
+        \end{itemize}
+      }
+      \only<5>{
+        \begin{itemize}
+          \item \textbf{\textcolor{infoRed}{Hybrid dynamics}}
+          \item \textbf{\textcolor{infoRed}{Underactuation}}
+          \item \textbf{\textcolor{infoRed}{Sim2Real gap}}
+          \item \textbf{\textcolor{infoRed}{High dimensionality}}
+          \item \textbf{\textcolor{infoRed}{Highly non-linear problem}}
+        \end{itemize}
+      }
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Whole-body Contact-rich Manipulation}
+  \begin{figure}
+    \centering
+    \tikzsetnextfilename{fig_humanoids_problem_representation.}
+    \input{Tikz/fig_humanoids_problem_representation.tex}
+    % \caption*{Variables of the trajectory to plan.}
+  \end{figure}
+  \begin{tikzpicture}[overlay, remember picture]
+    % photos of colaborators
+    \node[anchor=south east] (victor) at (current page.south east) [xshift=-3mm, yshift=10mm] {
+      \includegraphics[height=1.4cm]{images/Victor.png}
+    };
+    \node (victorName) at (victor.south) [anchor=north, text width=3.5cm, align=center] {
+      \textcolor{infoBlue}{\scriptsize\textbf{Victor}}
+    };
+    \draw[very thick, infoBlue] (victor) circle (0.7cm);
+  \end{tikzpicture}
+  \footfullcitenomark{Leve2024}
+\end{frame}
+
+\begin{frame}{Whole-body Contact-rich Manipulation}
+  \centering
+  \movie[
+    label=humanoids,
+    height=\heightVideoFull,
+    % autostart,
+    % repeat,
+    % showcontrols
+  ]{\includegraphics[height=\heightVideoFull]{images/victor_airec.png}}{videos/victor_airec.mp4}
+  \footfullcitenomark{Leve2025}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \centering
+      \begin{figure}
+        \tikzsetnextfilename{fig_landscape}
+        \input{Tikz/fig_landscape.tex}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{itemize}
+        \item \textbf{Hybrid dynamics}
+        \item \textbf{Underactuation}
+        \item \textbf{Sim2Real gap}
+        \item \textbf{High dimensionality}
+        \item \textbf{Highly non-linear problem}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \section{Project applications}
 
 \begin{frame}{
-  UKRI applications\footnote{\href{https://www.ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}{ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}}
+  UKRI application\footnote{\href{https://www.ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}{ukri.org/opportunity/japan-uk-joint-call-for-collaborations-in-advancing-human-centred-ai/}}
   }{Scaling Whole-Body Contact-Rich Interactions for Assistive Robotics: Human Centric Innovations for Embodied AI}
   \begin{center}
     \begin{figure}
